@@ -1,11 +1,19 @@
 ====== Redirect Configuration ======
 
-Here you can set up redirects for your wiki. You can redirect to external websites or pages in the wiki. All given pagenames have to be absolute and cleaned (no specialchars, all lowercase, full namespaces). Anchor hash must be escaped with a \.
+Here you can set up redirections for your wiki.
+  * You can redirect to external websites or pages in the wiki.
+  * All given pagenames have to be absolute and cleaned (no specialchars, all lowercase, full namespaces).
+  * Anchor hash must be escaped with a backslash (i.e. ''\#'').
+  * Comments can be added, preceded by a hash sign ''#''.
+  * Wildcard are possible using standard [[https://www.php.net/manual/en/reference.pcre.pattern.syntax.php|PCRE syntax]], including replacement of capturing groups.
 
 Use the following format:
 
 <code>
-pagename    internalpage
-otherpage   http://example.com
-somepage    internalpage\#headline
+# This is a comment
+pagename      internalpage
+otherpage     http://example.com
+somepage      internalpage\#headline
+/^old:.*/     new:                   # All pages in 'old' namespace are redirected to new's start page
+/^old:(.*)/   new:$1                 # $1 will be replaced by text in parentheses (old:page1 → new:page1)
 </code>
